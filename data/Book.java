@@ -1,26 +1,25 @@
 package data;
-import java.util.*;
 
 /**
 * Book data type 
 **/
 
 public class Book {
-  private ArrayList<Author> authorList;
+  private Author[] authorList = new Author[3];
   private String isbn;
   private String title;
   private double price;
   
-  public Book(ArrayList<Author> authorList, String isbn, String title) {
+  public Book(Author[] authorList, String isbn, String title) {
     super();
-    this.authorList = new ArrayList<>(authorList); 
+    this.authorList = (Author[]) authorList.clone(); 
     this.isbn = isbn;
     this.title = title;
     this.price = this.generatePrice();
   }
   
-  public ArrayList<Author> getAuthorList() {
-    return new ArrayList<>(this.authorList);
+  public Author[] getAuthorList() {
+    return authorList;
   }
   
   public String getIsbn() {
@@ -47,7 +46,6 @@ public class Book {
   }
   
   public String toString() {
-    return "Title: " + title + ", Author's Last Name: " + authorList.get(0).getLastName();
+    return "Title: " + title + ", Author's Last Name: " + authorList[0].getLastName();
   }
-  
 }

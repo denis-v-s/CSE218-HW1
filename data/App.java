@@ -11,16 +11,19 @@ public class App {
   }
 
   // @return amount of time it took to sort
-  private static double sort(Sorter s, Comparator<Book> c, List<Book> items, int topN) {
+  private static double sort(Sorter s, Comparator<Book> c, Book[] items, int topN) {
     System.out.println("before sort: ");
-    items.stream().limit(topN).forEach(System.out::println);
+    
+    Arrays.stream(items).limit(topN).forEach(System.out::println);
     
     double start = System.nanoTime();
     s.sort(items, c);
     double end = System.nanoTime();
     double sortTime = getRunTimeInSeconds(start, end);
-    System.out.println("\r\nafter sort (" + sortTime + " seconds to sort): ");
-    items.stream().limit(topN).forEach(System.out::println);
+    System.out.println("\r\nafter sort (" + sortTime + " seconds to sort " + items.length + " items): ");
+    
+    Arrays.stream(items).limit(topN).forEach(System.out::println);
+    
     System.out.println();
     
     return sortTime;
@@ -30,16 +33,14 @@ public class App {
     int topN = 10; // number of books to display
     
     BookProvider bookProvider = new BookProvider();
-    ArrayList<Book> books = bookProvider.getAllBooks();
-    
-    ArrayList<Book> booksByTitle = new ArrayList<>(books);
-    ArrayList<Book> booksByName = new ArrayList<>(books);
+    Book[] booksByTitle = bookProvider.getAllBooks();
+    Book[] booksByName = bookProvider.getAllBooks();
     
     // sorting options
     Comparator<Book> sortByTitle = (a, b) -> a.getBookTitle().compareTo(b.getBookTitle());
     Comparator<Book> sortByLastName = (a, b) -> 
-      a.getAuthorList().get(0).getLastName().compareTo(
-      b.getAuthorList().get(0).getLastName()
+      a.getAuthorList()[0].getLastName().compareTo(
+      b.getAuthorList()[0].getLastName()
     );
     
     // ** BUBBLE SORT ** //
@@ -54,6 +55,10 @@ public class App {
     System.out.println("Bubble sort: " + bubbleSortTime);
     System.out.println("Insertion sort: " + insertionSortTime);
     double delta = bubbleSortTime - insertionSortTime;
-    System.out.printf("Bubble sort was %f seconds %s", Math.abs(delta), (delta > 0) ? "slower" : "faster");
+    System.out.printf("Bubble sort was %f seconds %s at sorting %d items", 
+        Math.abs(delta), 
+        (delta > 0) ? "slower" : "faster",
+        booksByTitle.length
+    );
   }
 }

@@ -7,17 +7,17 @@ import java.util.*;
 **/
 
 public class InsertionSort implements Sorter {
-  public <T> void sort(List<T> items, Comparator<T> c) {
-    for (int i = 1; i < items.size(); i++) {
-      T cur = items.get(i);
+  public <T> void sort(T[] items, Comparator<T> c) {
+    for (int i = 1; i < items.length; i++) {
+      T cur = items[i];
       int j = i - 1;
       
-      while (j >= 0 && c.compare(items.get(j), cur) > 0) {
-        items.set(j + 1, items.get(j));
+      while (j >= 0 && c.compare(items[j], cur) > 0) {
+        items[j + 1] = items[j];
         j--;
       }
       
-      items.set(j + 1, cur);
+      items[j + 1] = cur;
     }
   }
 }
