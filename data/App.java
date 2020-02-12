@@ -43,13 +43,13 @@ public class App {
       b.getAuthorList()[0].getLastName()
     );
     
-    // ** BUBBLE SORT ** //
+      // ** INSERTION SORT ** //
+      System.out.println("INSERTION SORT");
+      double insertionSortTime = sort(new InsertionSort(), sortByLastName, booksByName, topN);
+
+      // ** BUBBLE SORT ** //
     System.out.println("BUBBLE SORT");
     double bubbleSortTime = sort(new BubbleSort(), sortByTitle, booksByTitle, topN);
-    
-    // ** INSERTION SORT ** //
-    System.out.println("INSERTION SORT");
-    double insertionSortTime = sort(new InsertionSort(), sortByLastName, booksByName, topN);
     
     // runtime comparison
     System.out.println("Bubble sort: " + bubbleSortTime);

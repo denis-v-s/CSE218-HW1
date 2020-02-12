@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Arrays;
+
 /**
 * Book data type 
 **/
@@ -12,14 +14,14 @@ public class Book {
   
   public Book(Author[] authorList, String isbn, String title) {
     super();
-    this.authorList = (Author[]) authorList.clone(); 
+    this.authorList = Arrays.copyOf(authorList, authorList.length); 
     this.isbn = isbn;
     this.title = title;
     this.price = this.generatePrice();
   }
   
   public Author[] getAuthorList() {
-    return authorList;
+    return Arrays.copyOf(authorList, authorList.length);
   }
   
   public String getIsbn() {
